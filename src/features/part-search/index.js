@@ -12,3 +12,4 @@ export {
   selectSearchQuery,
   selectSelectedManufacturer,
 } from './model/partSearchSlice'
+export { PartSearch } from './ui/PartSearch'

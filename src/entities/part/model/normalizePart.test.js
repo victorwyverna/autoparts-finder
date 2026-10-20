@@ -4,6 +4,7 @@ import * as part from '../index'
 
 test('exposes only the supported part normalization interface', () => {
   expect(Object.keys(part).sort()).toEqual([
+    'PartsTable',
     'getManufacturerOptions',
     'normalizeParts',
   ])

@@ -15,6 +15,13 @@ test('renders the project heading', () => {
   ).toBeInTheDocument()
 })
 
+test('renders the two-stage part search on the home page', () => {
+  render(<App />)
+
+  expect(screen.getByLabelText('Артикул детали')).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Найти' })).toBeInTheDocument()
+})
+
 test('starts with a clean document between tests', () => {
   expect(
     screen.queryByRole('heading', { name: 'Поиск автозапчастей' }),
