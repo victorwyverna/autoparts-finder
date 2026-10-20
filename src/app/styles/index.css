@@ -2,7 +2,7 @@
   font-family:
     Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #212529;
-  background: #f4f7fb;
+  background: #fff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -15,39 +15,26 @@ body {
 
 .page-shell {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, rgb(13 110 253 / 10%), transparent 32rem),
-    #f4f7fb;
-}
-
-.eyebrow {
-  color: #0d6efd;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.search-card {
-  max-width: 76rem;
-  margin-inline: auto;
-  padding: clamp(1.25rem, 3vw, 2rem);
-  border: 1px solid rgb(33 37 41 / 8%);
-  border-radius: 1.25rem;
   background: #fff;
-  box-shadow: 0 1rem 3rem rgb(33 37 41 / 8%);
 }
 
-.search-card fieldset .btn {
+.search-workspace {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding: clamp(1.25rem, 3vw, 3rem);
+}
+
+.search-workspace fieldset .btn {
   min-width: 9rem;
 }
 
-.search-card .table {
+.search-workspace .table {
   min-width: 62rem;
   margin-bottom: 0;
 }
 
-.search-card .table th {
+.search-workspace .table th {
   color: #5c6670;
   font-size: 0.75rem;
   letter-spacing: 0.04em;
@@ -55,21 +42,12 @@ body {
   white-space: nowrap;
 }
 
-.search-card .table td {
+.search-workspace .table td {
   white-space: nowrap;
 }
 
 @media (max-width: 575.98px) {
-  .page-shell {
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
-  }
-
-  .search-card {
-    border-radius: 1rem;
-  }
-
-  .search-card fieldset .btn {
+  .search-workspace fieldset .btn {
     width: 100%;
   }
 }

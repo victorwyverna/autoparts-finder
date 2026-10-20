@@ -23,7 +23,7 @@ export function PartSearchForm({ isLoading, onSearch }) {
   }
 
   return (
-    <form className="row g-3 align-items-end" onSubmit={handleSubmit}>
+    <form className="row g-2 align-items-end" onSubmit={handleSubmit}>
       <div className="col-md">
         <label className="form-label fw-semibold" htmlFor="part-number">
           Артикул детали
@@ -37,7 +37,7 @@ export function PartSearchForm({ isLoading, onSearch }) {
             setNumber(event.target.value)
             setValidationError(null)
           }}
-          placeholder="Например, W9142"
+          placeholder="Например, 01089"
           value={number}
         />
         {validationError && (
@@ -52,7 +52,7 @@ export function PartSearchForm({ isLoading, onSearch }) {
           disabled={isLoading}
           type="submit"
         >
-          Найти
+          Поиск
         </button>
       </div>
     </form>

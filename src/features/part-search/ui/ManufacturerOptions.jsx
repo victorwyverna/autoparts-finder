@@ -1,7 +1,7 @@
 export function ManufacturerOptions({ disabled, options, onSelect, selected }) {
   return (
     <fieldset className="mt-4">
-      <legend className="h5">Выберите производителя</legend>
+      <legend className="h6 fw-semibold">Выберите производителя</legend>
       <div className="d-flex flex-wrap gap-2">
         {options.map((option) => {
           const isSelected =

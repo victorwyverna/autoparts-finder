@@ -87,7 +87,7 @@ test('searches an article, selects its exact manufacturer, and shows offers', as
   const { user } = renderSearch()
 
   await user.type(screen.getByLabelText('Артикул детали'), ' W9142 ')
-  await user.click(screen.getByRole('button', { name: 'Найти' }))
+  await user.click(screen.getByRole('button', { name: 'Поиск' }))
 
   const manufacturerGroup = await screen.findByRole('group', {
     name: 'Выберите производителя',
@@ -126,7 +126,7 @@ test('shows validation and does not search a blank article', async () => {
   const { user } = renderSearch()
 
   await user.type(screen.getByLabelText('Артикул детали'), '   ')
-  await user.click(screen.getByRole('button', { name: 'Найти' }))
+  await user.click(screen.getByRole('button', { name: 'Поиск' }))
 
   expect(screen.getByText('Введите артикул детали')).toBeInTheDocument()
   expect(searchPartsMock).not.toHaveBeenCalled()
@@ -138,12 +138,12 @@ test('shows an accessible manufacturer loader and prevents a repeated submit', a
   const { user } = renderSearch()
 
   await user.type(screen.getByLabelText('Артикул детали'), 'W9142')
-  await user.click(screen.getByRole('button', { name: 'Найти' }))
+  await user.click(screen.getByRole('button', { name: 'Поиск' }))
 
   expect(screen.getByRole('status')).toHaveTextContent(
     'Ищем производителей…',
   )
-  const submitButton = screen.getByRole('button', { name: 'Найти' })
+  const submitButton = screen.getByRole('button', { name: 'Поиск' })
   expect(submitButton).toBeDisabled()
   await user.click(submitButton)
   expect(searchPartsMock).toHaveBeenCalledOnce()
@@ -157,7 +157,7 @@ test('shows a distinct error when manufacturer search fails', async () => {
   const { user } = renderSearch()
 
   await user.type(screen.getByLabelText('Артикул детали'), 'W9142')
-  await user.click(screen.getByRole('button', { name: 'Найти' }))
+  await user.click(screen.getByRole('button', { name: 'Поиск' }))
 
   expect(await screen.findByRole('alert')).toHaveTextContent(
     'Не удалось найти производителей. Попробуйте ещё раз.',
@@ -169,7 +169,7 @@ test('explains when no manufacturers match the article', async () => {
   const { user } = renderSearch()
 
   await user.type(screen.getByLabelText('Артикул детали'), 'UNKNOWN')
-  await user.click(screen.getByRole('button', { name: 'Найти' }))
+  await user.click(screen.getByRole('button', { name: 'Поиск' }))
 
   const emptyState = await screen.findByText(
     'Производители для этого артикула не найдены.',
@@ -185,7 +185,7 @@ test('shows an accessible offers loader and disables manufacturer choices', asyn
   const { user } = renderSearch()
 
   await user.type(screen.getByLabelText('Артикул детали'), 'W9142')
-  await user.click(screen.getByRole('button', { name: 'Найти' }))
+  await user.click(screen.getByRole('button', { name: 'Поиск' }))
   const manufacturerButton = await screen.findByRole('button', { name: /MANN/ })
   await user.click(manufacturerButton)
 
@@ -202,7 +202,7 @@ test('shows a distinct error when offers search fails', async () => {
   const { user } = renderSearch()
 
   await user.type(screen.getByLabelText('Артикул детали'), 'W9142')
-  await user.click(screen.getByRole('button', { name: 'Найти' }))
+  await user.click(screen.getByRole('button', { name: 'Поиск' }))
   await user.click(await screen.findByRole('button', { name: /MANN/ }))
 
   expect(await screen.findByRole('alert')).toHaveTextContent(
@@ -216,7 +216,7 @@ test('explains when the selected manufacturer has no offers', async () => {
   const { user } = renderSearch()
 
   await user.type(screen.getByLabelText('Артикул детали'), 'W9142')
-  await user.click(screen.getByRole('button', { name: 'Найти' }))
+  await user.click(screen.getByRole('button', { name: 'Поиск' }))
   await user.click(await screen.findByRole('button', { name: /MANN/ }))
 
   const emptyState = await screen.findByText(
@@ -236,13 +236,13 @@ test('removes previous offers as soon as a new article search starts', async () 
   const input = screen.getByLabelText('Артикул детали')
 
   await user.type(input, 'W9142')
-  await user.click(screen.getByRole('button', { name: 'Найти' }))
+  await user.click(screen.getByRole('button', { name: 'Поиск' }))
   await user.click(await screen.findByRole('button', { name: /MANN/ }))
   expect(await screen.findByRole('table')).toBeInTheDocument()
 
   await user.clear(input)
   await user.type(input, 'NEW')
-  await user.click(screen.getByRole('button', { name: 'Найти' }))
+  await user.click(screen.getByRole('button', { name: 'Поиск' }))
 
   expect(screen.queryByRole('table')).not.toBeInTheDocument()
   expect(screen.getByRole('status')).toHaveTextContent(

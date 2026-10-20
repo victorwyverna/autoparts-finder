@@ -22,7 +22,7 @@ export function PartSearch() {
   const selectedManufacturer = useSelector(selectSelectedManufacturer)
 
   return (
-    <section aria-label="Поиск запчастей" className="search-card">
+    <section aria-label="Поиск запчастей" className="search-workspace">
       <PartSearchForm
         isLoading={manufacturerStatus === 'loading'}
         onSearch={(number) => dispatch(searchManufacturers(number))}
@@ -80,12 +80,12 @@ export function PartSearch() {
         <div
           aria-labelledby="search-results-heading"
           aria-live="polite"
-          className="mt-5"
+          className="mt-4"
           role="region"
         >
-          <h2 className="h4 mb-3" id="search-results-heading">
+          <h6 className="h6 fw-semibold mb-3" id="search-results-heading">
             Найденные предложения
-          </h2>
+          </h6>
           <PartsTable parts={parts} />
         </div>
       )}
