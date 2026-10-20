@@ -1,7 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-const rootReducer = (state = {}) => state
+import { partSearchReducer } from '../../../features/part-search'
 
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    partSearch: partSearchReducer,
+  },
 })
