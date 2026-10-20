@@ -15,6 +15,12 @@ test('renders the project heading', () => {
   ).toBeInTheDocument()
 })
 
+test('starts with a clean document between tests', () => {
+  expect(
+    screen.queryByRole('heading', { name: 'Поиск автозапчастей' }),
+  ).not.toBeInTheDocument()
+})
+
 test('mounts the real Redux provider without errors', () => {
   const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
 
