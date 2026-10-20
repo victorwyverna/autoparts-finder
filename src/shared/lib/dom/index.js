@@ -1,0 +1,1 @@
+export { getRootElement } from './getRootElement'
