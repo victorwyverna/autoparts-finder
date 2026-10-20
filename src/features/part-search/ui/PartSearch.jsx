@@ -8,6 +8,7 @@ import {
   selectManufacturerStatus,
   selectOffersStatus,
   selectParts,
+  selectSelectedManufacturer,
 } from '../model/partSearchSlice'
 import { ManufacturerOptions } from './ManufacturerOptions'
 import { PartSearchForm } from './PartSearchForm'
@@ -18,6 +19,7 @@ export function PartSearch() {
   const manufacturerStatus = useSelector(selectManufacturerStatus)
   const offersStatus = useSelector(selectOffersStatus)
   const parts = useSelector(selectParts)
+  const selectedManufacturer = useSelector(selectSelectedManufacturer)
 
   return (
     <section aria-label="Поиск запчастей" className="search-card">
@@ -41,7 +43,7 @@ export function PartSearch() {
 
       {manufacturerStatus === 'succeeded' &&
         manufacturerOptions.length === 0 && (
-          <p className="alert alert-info mt-4 mb-0">
+          <p className="alert alert-info mt-4 mb-0" role="status">
             Производители для этого артикула не найдены.
           </p>
         )}
@@ -51,6 +53,7 @@ export function PartSearch() {
           disabled={offersStatus === 'loading'}
           onSelect={(option) => dispatch(searchOffers(option))}
           options={manufacturerOptions}
+          selected={selectedManufacturer}
         />
       )}
 
@@ -68,14 +71,21 @@ export function PartSearch() {
       )}
 
       {offersStatus === 'succeeded' && parts.length === 0 && (
-        <p className="alert alert-info mt-4 mb-0">
+        <p className="alert alert-info mt-4 mb-0" role="status">
           Предложения для выбранной детали не найдены.
         </p>
       )}
 
       {offersStatus === 'succeeded' && parts.length > 0 && (
-        <div className="mt-5">
-          <h2 className="h4 mb-3">Найденные предложения</h2>
+        <div
+          aria-labelledby="search-results-heading"
+          aria-live="polite"
+          className="mt-5"
+          role="region"
+        >
+          <h2 className="h4 mb-3" id="search-results-heading">
+            Найденные предложения
+          </h2>
           <PartsTable parts={parts} />
         </div>
       )}

@@ -103,6 +103,18 @@ test('searches an article, selects its exact manufacturer, and shows offers', as
   })
   expect(within(table).getByText('Масляный фильтр')).toBeInTheDocument()
   expect(within(table).getByText('Фильтр-аналог')).toBeInTheDocument()
+  expect(
+    screen.getByRole('region', { name: 'Найденные предложения' }),
+  ).toHaveAttribute('aria-live', 'polite')
+  expect(
+    within(manufacturerGroup).getByRole('button', { name: /MANN/ }),
+  ).toHaveAttribute('aria-pressed', 'true')
+  expect(
+    within(manufacturerGroup).getByRole('button', { name: /BOSCH/ }),
+  ).toHaveAttribute('aria-pressed', 'false')
+  expect(
+    within(manufacturerGroup).getByRole('button', { name: /MANN/ }),
+  ).toHaveClass('active')
   expect(searchPartsMock).toHaveBeenCalledWith('W9142')
   expect(searchAnaloguesMock).toHaveBeenCalledWith({
     brand: 'MANN',
@@ -159,9 +171,10 @@ test('explains when no manufacturers match the article', async () => {
   await user.type(screen.getByLabelText('Артикул детали'), 'UNKNOWN')
   await user.click(screen.getByRole('button', { name: 'Найти' }))
 
-  expect(
-    await screen.findByText('Производители для этого артикула не найдены.'),
-  ).toBeInTheDocument()
+  const emptyState = await screen.findByText(
+    'Производители для этого артикула не найдены.',
+  )
+  expect(emptyState).toHaveAttribute('role', 'status')
   expect(screen.queryByRole('group')).not.toBeInTheDocument()
 })
 
@@ -206,9 +219,10 @@ test('explains when the selected manufacturer has no offers', async () => {
   await user.click(screen.getByRole('button', { name: 'Найти' }))
   await user.click(await screen.findByRole('button', { name: /MANN/ }))
 
-  expect(
-    await screen.findByText('Предложения для выбранной детали не найдены.'),
-  ).toBeInTheDocument()
+  const emptyState = await screen.findByText(
+    'Предложения для выбранной детали не найдены.',
+  )
+  expect(emptyState).toHaveAttribute('role', 'status')
   expect(screen.queryByRole('table')).not.toBeInTheDocument()
 })
 
